@@ -18,5 +18,6 @@ module Workspace
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+    config.hosts << "subejba-automatic-space-robot-jjjv7wxvgg73jqxg-3000.preview.app.github.dev"
   end
 end
