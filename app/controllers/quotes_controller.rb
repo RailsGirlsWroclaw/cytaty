@@ -1,5 +1,26 @@
+
+    # nethttp.rb 
+require 'uri' 
+require 'net/http'
+
 class QuotesController < ApplicationController
   before_action :set_quote, only: %i[ show edit update destroy ]
+
+  # GET /external-quotes
+  def external_quotes
+    uri = URI('http://api.paperquotes.com/apiv1/quotes/') 
+    api_key = 'Token write_api_key' 
+    req = Net::HTTP::Get.new(uri)
+    req['Authorization'] = api_key
+
+  res = Net::HTTP.start(uri.hostname, uri.port, use_ssl: uri.scheme == 'https') { |http|
+    http.request(req)
+    }
+  
+  @external_quote = JSON.parse(res.body)
+
+  res.body
+  end
 
   # GET /quotes or /quotes.json
   def index
